@@ -210,7 +210,7 @@ see the license.txt that was included with the plugin bundle.
             percentageText.style.top = ((settings.height / 2) - (fontSize / 2)).toString() + 'px';
             percentageText.style.color = '#80a9c8';
             percentageText.style.font = fontSize.toString() + 'px BebasNeueRegular';
-	        percentageText.style.textShadow = '0 1px 1px #FFFFFF';
+	    percentageText.style.textShadow = '0 1px 1px #FFFFFF';
             
             // Calculate the text for the given percentage
             var string = (progress * 100.0).toFixed(0) + '%';
@@ -218,11 +218,11 @@ see the license.txt that was included with the plugin bundle.
             percentageText.innerHTML = string;
             
             /* Calculate font and placement of small 'value' text */
-            var smallSize = cX / 5.0;
+            var smallSize = cX / 5.5;
             valueText.style.color = '#80a9c8';
             valueText.style.font = smallSize.toString() + 'px BebasNeueRegular';
-	        valueText.style.textShadow = '0 1px 1px #FFFFFF';
             valueText.style.height = smallSize.toString() + 'px';
+	    valueText.style.textShadow = 'None';
             
             /* Ugly vertical align calculations - fit into bottom ring.
              * The bottom ring occupes 1/6 of the diameter of the circle */
