@@ -263,12 +263,8 @@ see the license.txt that was included with the plugin bundle.
         progress = settings.progress;
         clipValue();
         
-        /* Ensure the gradient image is ready before rendering the
-         * component for the first time */
-        $(gradient).load(function() {
-            // Do an initial draw
-            drawLoader();
-        });
+        // Do an initial draw
+        drawLoader();
                      
         return this;
     }
