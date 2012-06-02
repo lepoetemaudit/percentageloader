@@ -350,8 +350,9 @@ see the file license.txt that was included with the plugin bundle.
 	    
 	    $(this).mousedown(function(e) {
 		var offset = $(this).offset();
-		var x = e.clientX - offset.left;
-		var y = e.clientY - offset.top;
+		var x = e.pageX - offset.left;
+		var y = e.pageY - offset.top;
+	    
 		var distance = getDistance(x, y);
 		
 		if (distance > innerRadius && distance < radius) {
@@ -363,9 +364,8 @@ see the file license.txt that was included with the plugin bundle.
 	    }).mousemove(function(e) {
 		if (mouseDown) {
 		    var offset = $(this).offset();
-		    var x = e.clientX - offset.left;
-		    var y = e.clientY - offset.top;
-
+		    var x = e.pageX - offset.left;
+		    var y = e.pageY - offset.top;
 		    adjustProgressWithXY(x, y);
 		}
 	    });
