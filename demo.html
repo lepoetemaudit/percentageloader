@@ -40,7 +40,7 @@
        <script>
         $(function() {
           var $topLoader = $("#topLoader").percentageLoader({width: 256, height: 256, controllable : true, progress : 0.5, onProgressUpdate : function(val) {
-              //$topLoader.setValue(val);
+              $topLoader.setValue(Math.round(val));
             }});
 
           var topLoaderRunning = false;
