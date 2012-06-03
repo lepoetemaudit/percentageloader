@@ -35,7 +35,7 @@ see the file license.txt that was included with the plugin bundle.
         var settings, canvas, percentageText, valueText, items, i, item, selectors, s, ctx, progress,
             value, cX, cY, lingrad, innerGrad, tubeGrad, innerRadius, innerBarRadius, outerBarRadius,
             radius, startAngle, endAngle, counterClockwise, completeAngle, setProgress, setValue,
-            applyAngle, drawLoader, clipValue;
+            applyAngle, drawLoader, clipValue, outerDiv;
 
         /* Specify default settings */
         settings = {
@@ -50,16 +50,18 @@ see the file license.txt that was included with the plugin bundle.
             $.extend(settings, params);
         }
 
-        /* We're going to do some fiddling with the DOM as well as using canvas;
-         * set the container position to 'relative' so we can use absolute positioning
-         * on child elements */
-        $(this).css('position', 'relative');
+        outerDiv = document.createElement('div');
+        outerDiv.style.width = settings.width + 'px';
+        outerDiv.style.height = settings.height + 'px';
+        outerDiv.style.position = 'relative';
+
+        $(this).append(outerDiv);
 
         /* Create our canvas object */
         canvas = document.createElement('canvas');
         canvas.setAttribute('width', settings.width);
         canvas.setAttribute('height', settings.height);
-        this.append(canvas);
+        outerDiv.appendChild(canvas);
 
         /* Create div elements we'll use for text. Drawing text is
          * possible with canvas but it is tricky working with custom
@@ -97,8 +99,8 @@ see the file license.txt that was included with the plugin bundle.
         }
 
         /* Add the new dom elements to the containing div */
-        this.append(percentageText);
-        this.append(valueText);
+        outerDiv.appendChild(percentageText);
+        outerDiv.appendChild(valueText);
 
         /* Get a reference to the context of our canvas object */
         ctx = canvas.getContext("2d");
@@ -132,8 +134,8 @@ see the file license.txt that was included with the plugin bundle.
         radius = cX - 2;
 
         /* Calculate the radii of the inner tube */
-        innerBarRadius = innerRadius + 8;
-        outerBarRadius = radius - 8;
+        innerBarRadius = innerRadius + (cX * 0.06);
+        outerBarRadius = radius - (cX * 0.06);
 
         /* Bottom left angle */
         startAngle = 2.1707963267949;
@@ -356,11 +358,14 @@ see the file license.txt that was included with the plugin bundle.
                     setProgress(posValue);
 
                     if (params.onProgressUpdate) {
-                        params.onProgressUpdate(posValue);
+                        /* use the progress value as this will have been clipped
+                         * to the correct range [0..1] after the call to setProgress
+                         */
+                        params.onProgressUpdate(progress);
                     }
                 };
 
-                $(this).mousedown(function (e) {
+                $(outerDiv).mousedown(function (e) {
                     var offset, x, y, distance;
                     offset = $(this).offset();
                     x = e.pageX - offset.left;
@@ -377,7 +382,7 @@ see the file license.txt that was included with the plugin bundle.
                 }).mousemove(function (e) {
                     var offset, x, y;
                     if (mouseDown) {
-                        offset = $(this).offset();
+                        offset = $(outerDiv).offset();
                         x = e.pageX - offset.left;
                         y = e.pageY - offset.top;
                         adjustProgressWithXY(x, y);
