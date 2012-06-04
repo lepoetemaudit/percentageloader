@@ -387,6 +387,8 @@ see the file license.txt that was included with the plugin bundle.
                         y = e.pageY - offset.top;
                         adjustProgressWithXY(x, y);
                     }
+                }).mouseleave(function () {
+                    mouseDown = false;
                 });
             }());
         }
