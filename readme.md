@@ -1,33 +1,57 @@
-jquery.percentageloader 0.1
-===========================
+# jQuery.percentageloader
 
-[work in progress]
+## Introduction
 
-Requirements
-------------
+jQuery.percentageloader is a widget for displaying progress in a visual way. The plugin is simple to 
+install and use. It makes use of HTML 5 canvas for a rich graphical appearance with only a 10kb minified
+javascript file necessary (suggested web font optional).
 
+## Requirements
+
+* jQuery 1.4+
 * Firefox 3.0+, Safari 4.0+, Chrome 7+, IE9+, Opera 9+
 
 (i.e any browser with reasonable canvas support)
 
-* jQuery 1.4+
+## Licence
 
-Installation
-------------
+This jQuery plugin is licensed under the Simplified BSD License. Please
+see the file license.txt for full information on the licence.
 
-* Include the javascript file
-* Optional but recommended web font - Bebas Neue + fontkit CSS
-* Run on any block element where you want the widget to appear
+## Installation
 
-* Options include:
-  - progress (initial starting position of loader, range 0 - 1.0)
-  - value (initial label for the value)
-  - width (defaults to 256)
-  - height (default to 256)
+1. Include the javascript file (a minified version is also provided)
+2. You can also include the (optional but recommended web font) - Bebas Neue + fontkit CSS. This can
+   found downloaded at [http://www.fontsquirrel.com/fonts/bebas-neue](http://www.fontsquirrel.com/fonts/bebas-neue)
+3. Run `$.percentageLoader` on any block element where you want the widget to appear
 
-  e.g:
+Options include:
+
+* `progress` (initial starting position of loader, range 0 - 1.0)
+* `value` (initial label for the value)
+* `width` (default 256)
+* `height` (default 256)
+* `controllable` (true/false, defaults to false) allows the user to set the value by clicking
+* `onProgressUpdate(value)` - provide a callback function for controllable loaders with the updated value
+
+
+## Examples:
+
     $("#myDiv").percentageLoader({
         width : 180, height : 180, progress : 0.5, value : '512kb'});
 
-* You can update the values with .setProgress() and .setValue() functions 
+You can update the values with .setProgress() and .setValue() functions, e.g.
 
+    var loader = $("#myDiv").percentageLoader();
+    loader.setValue('250kb');
+    loader.setProgress(0.5);
+    
+You can handle updates with a user-controllable loader with a callback function:
+
+    var loader;
+    loader = $("myDiv").percentageLoader({
+        controllable : true,
+        onProgressUpdate : function (value) {
+            loader.setProgress(value * 100.0);
+        }
+    });
