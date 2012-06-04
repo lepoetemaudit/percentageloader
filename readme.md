@@ -1,10 +1,13 @@
-# jQuery.percentageloader
+# jQuery.PercentageLoader
 
 ## Introduction
 
-jQuery.percentageloader is a widget for displaying progress in a visual way. The plugin is simple to 
-install and use. It makes use of HTML 5 canvas for a rich graphical appearance with only a 10kb minified
-javascript file necessary (suggested web font optional).
+jQuery.PercentageLoader is a jQuery plugin for displaying a progress widget in more visually striking way than
+the ubiquitous horizontal progress bar / textual counter. The plugin takes miniminal installation and is simple
+and flexibile to use. It makes use of HTML 5 canvas for a rich graphical appearance with only a 10kb (minified)
+javascript file necessary (suggested web font optional). It uses vectors rather than images so can be easily
+deployed at various sizes by simply adjusting the initial parameters. For a live demo please see
+[http://widgets.better2web.com/loader](http://widgets.better2web.com/loader)
 
 ## Requirements
 
