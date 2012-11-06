@@ -42,12 +42,15 @@ see the file license.txt that was included with the plugin bundle.
             width: 256,
             height: 256,
             progress: 0,
-            value: '0kb'
+            value: '0kb',
+            controllable: false
         };
 
         /* Override default settings with provided params, if any */
         if (params !== undefined) {
             $.extend(settings, params);
+        } else {
+            params = settings;
         }
 
         outerDiv = document.createElement('div');
