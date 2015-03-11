@@ -1,7 +1,7 @@
 /*
 jquery.percentageloader.js 
  
-Copyright (c) 2012, Better2Web
+Copyright (c) 2015, David Jeffrey & Piotr Kwiatkowski
 All rights reserved.
 
 This jQuery plugin is licensed under the Simplified BSD License. Please
@@ -9,11 +9,8 @@ see the file license.txt that was included with the plugin bundle.
 
 */
 
-/*global jQuery */
-
-(function ($) {
-    /* Strict mode for this plugin */
-    "use strict";
+(function() {
+      "use strict";
     /*jslint browser: true */
 
     /* Our spiral gradient data */
@@ -21,21 +18,11 @@ see the file license.txt that was included with the plugin bundle.
         gradient = new Image();
     gradient.src = imgdata;
 
-    /** Percentage loader
-     * @param	params	Specify options in {}. May be on of width, height, progress or value.
-     *
-     * @example $("#myloader-container).percentageLoader({
-		    width : 256,  // width in pixels
-		    height : 256, // height in pixels
-		    progress: 0,  // initialise progress bar position, within the range [0..1]
-		    value: '0kb'  // initialise text label to this value
-		});
-     */
-    $.fn.percentageLoader = function (params) {
-        var settings, canvas, percentageText, valueText, items, i, item, selectors, s, ctx, progress,
+    window.PercentageLoader = function(el, params) {
+      var settings, canvas, percentageText, valueText, items, i, item, selectors, s, ctx, progress,
             value, cX, cY, lingrad, innerGrad, tubeGrad, innerRadius, innerBarRadius, outerBarRadius,
             radius, startAngle, endAngle, counterClockwise, completeAngle, setProgress, setValue,
-            applyAngle, drawLoader, clipValue, outerDiv;
+            applyAngle, drawLoader, clipValue, outerDiv, ready;
 
         /* Specify default settings */
         settings = {
@@ -58,7 +45,7 @@ see the file license.txt that was included with the plugin bundle.
         outerDiv.style.height = settings.height + 'px';
         outerDiv.style.position = 'relative';
 
-        $(this).append(outerDiv);
+        $(el).append(outerDiv);
 
         /* Create our canvas object */
         canvas = document.createElement('canvas');
@@ -325,8 +312,14 @@ see the file license.txt that was included with the plugin bundle.
             valueText.innerHTML = value;
         };
 
+        ready = function(fn) {
+            $(gradient).on('load', fn);
+        };
+
         this.setValue = setValue;
         this.setValue(settings.value);
+
+        this.loaded = ready;
 
         progress = settings.progress;
         clipValue();
@@ -395,6 +388,46 @@ see the file license.txt that was included with the plugin bundle.
                 });
             }());
         }
+
         return this;
-    };
-}(jQuery));
+    }
+})();
+
+// If jQuery is available, define this as a jQuery plugin
+if (jQuery !== undefined) {
+    /*global jQuery */
+    (function ($) {
+        /* Strict mode for this plugin */
+
+        /** Percentage loader
+         * @param    params    Specify options in {}. May be on of width, height, progress or value.
+         *
+         * @example $("#myloader-container).percentageLoader({
+                width : 256,  // width in pixels
+                height : 256, // height in pixels
+                progress: 0,  // initialise progress bar position, within the range [0..1]
+                value: '0kb'  // initialise text label to this value
+            });
+         */
+        $.fn.percentageLoader = function (params) {
+            return this.each(function () {
+                if (!$.data(this, 'dj_percentageloader')) {
+                    $.data(this, 'dj_percentageloader', new PercentageLoader(this, params));
+                } else {
+                    var plugin = $.data(this, 'dj_percentageloader');
+                    if (params['value'] !== undefined) {
+                        plugin.setValue(params['value']);
+                    }
+
+                    if (params['progress'] !== undefined) {
+                        plugin.setProgress(params['progress']);
+                    }
+
+                    if (params['onready'] !== undefined) {
+                        plugin.loaded(params['onready']);
+                    }
+                }
+            });
+        };
+    }(jQuery));
+}
