@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <script src="src/jquery.percentageloader-0.2.js"></script>
+    <link rel="stylesheet" href="src/jquery.percentageloader-0.2.css">
+
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+      
+      #topLoader {
+        width: 256px;
+        height: 256px;
+        margin-bottom: 32px;
+      }
+      
+      #container {
+        width: 940px;
+        padding: 10px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      
+      #animateButton {
+        width: 256px;
+      }
+    </style>
+  
+  </head>
+  <body>
+    <div id="container">
+      <div id="topLoader">      
+      </div>
+      
+      <button id="animateButton">Animate Loader</button>
+      
+       <script>
+          window.addEventListener('load', function() {
+            var topLoader = new PercentageLoader(document.getElementById('topLoader'), {
+              width: 256, height: 256, controllable: true, progress: 0.5, onProgressUpdate: function (val) {
+                this.setValue(Math.round(val * 100.0) + 'kj');
+              }
+            });
+
+            var topLoaderRunning = false;
+
+            /* Some browsers may load in assets asynchronously. If you are using the percentage
+             * loader as soon as you create it (i.e. within the same execution block) you may want to
+             * wrap it in the below `ready` function to ensure its correct operation
+             */
+            topLoader.loaded(function () {
+              document.getElementById('animateButton').addEventListener('click', function () {
+                if (topLoaderRunning) {
+                  return;
+                }
+
+                topLoaderRunning = true;
+
+                var kb = 0;
+                var totalKb = 999;
+
+                var animateFunc = function () {
+                  kb += 17;
+                  topLoader.setProgress(kb / totalKb);
+                  topLoader.setValue(kb.toString() + 'kb');
+
+                  if (kb < totalKb) {
+                    setTimeout(animateFunc, 25);
+                  } else {
+                    topLoaderRunning = false;
+                  }
+                };
+
+                setTimeout(animateFunc, 25);
+              });
+            });
+          });
+
+      </script>
+    </div>
+     
+  </body>
+</html>

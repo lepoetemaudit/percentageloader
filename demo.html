@@ -2,8 +2,8 @@
 <html>
   <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script src="src/jquery.percentageloader-0.1.js"></script>
-    <link rel="stylesheet" href="src/jquery.percentageloader-0.1.css">
+    <script src="src/jquery.percentageloader-0.2.js"></script>
+    <link rel="stylesheet" href="src/jquery.percentageloader-0.2.css">
 
     <style>
       body {
@@ -41,7 +41,7 @@
         $(function() {
           var $topLoader = $("#topLoader").percentageLoader({
             width: 256, height: 256, controllable: true, progress: 0.5, onProgressUpdate: function (val) {
-              this.setValue(Math.round(val * 100.0));
+              this.setValue(Math.round(val * 100.0) + 'kj');
             }
           });
 
