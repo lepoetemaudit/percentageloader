@@ -103,7 +103,7 @@ see the file license.txt that was included with the plugin bundle.
 
         /* Add the new dom elements to the containing div */
         outerDiv.appendChild(percentageText);
-        outerDiv.appendChild(valueText);
+//      outerDiv.appendChild(valueText);
 
         /* Get a reference to the context of our canvas object */
         ctx = canvas.getContext("2d");
@@ -141,9 +141,9 @@ see the file license.txt that was included with the plugin bundle.
         outerBarRadius = radius - (cX * 0.06);
 
         /* Bottom left angle */
-        startAngle = 2.1707963267949;
+        startAngle = (Math.PI * 1.5);
         /* Bottom right angle */
-        endAngle = 0.9707963267949 + (Math.PI * 2.0);
+        endAngle = (Math.PI * 3.5);
 
         /* Nicer to pass counterClockwise / clockwise into canvas functions
         * than true / false */

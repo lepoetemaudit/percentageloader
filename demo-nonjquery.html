@@ -34,12 +34,10 @@
       <div id="topLoader">      
       </div>
       
-      <button id="animateButton">Animate Loader</button>
-      
        <script>
           window.addEventListener('load', function() {
             var topLoader = new PercentageLoader(document.getElementById('topLoader'), {
-              width: 256, height: 256, controllable: true, progress: 0.5, onProgressUpdate: function (val) {
+              width: 256, height: 256, controllable: true, progress: 0, onProgressUpdate: function (val) {
                 this.setValue(Math.round(val * 100.0) + 'kj');
               }
             });
@@ -51,7 +49,6 @@
              * wrap it in the below `ready` function to ensure its correct operation
              */
             topLoader.loaded(function () {
-              document.getElementById('animateButton').addEventListener('click', function () {
                 if (topLoaderRunning) {
                   return;
                 }
@@ -59,12 +56,12 @@
                 topLoaderRunning = true;
 
                 var kb = 0;
-                var totalKb = 999;
+                var totalKb = 888;
 
                 var animateFunc = function () {
-                  kb += 17;
+                  kb += 20;
                   topLoader.setProgress(kb / totalKb);
-                  topLoader.setValue(kb.toString() + 'kb');
+//                topLoader.setValue(kb.toString() + 'kb');
 
                   if (kb < totalKb) {
                     setTimeout(animateFunc, 25);
@@ -75,7 +72,6 @@
 
                 setTimeout(animateFunc, 25);
               });
-            });
           });
 
       </script>
