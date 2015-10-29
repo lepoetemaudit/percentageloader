@@ -131,14 +131,14 @@ see the file license.txt that was included with the plugin bundle.
         tubeGrad.addColorStop(1, '#aacee6');
 
         /* The inner circle is 2/3rds the size of the outer one */
-        innerRadius = cX * 0.6666;
+        innerRadius = cX * 0.8;
         /* Outer radius is the same as the width / 2, same as the centre x
         * (but we leave a little room so the borders aren't truncated) */
         radius = cX - 2;
 
         /* Calculate the radii of the inner tube */
-        innerBarRadius = innerRadius + (cX * 0.06);
-        outerBarRadius = radius - (cX * 0.06);
+        innerBarRadius = innerRadius + (cX * 0.01);
+        outerBarRadius = radius - (cX * 0.01);
 
         /* Bottom left angle */
         startAngle = (Math.PI * 1.5);
