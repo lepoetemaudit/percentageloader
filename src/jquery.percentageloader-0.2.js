@@ -103,7 +103,7 @@ see the file license.txt that was included with the plugin bundle.
 
         /* Add the new dom elements to the containing div */
         outerDiv.appendChild(percentageText);
-        outerDiv.appendChild(valueText);
+//      outerDiv.appendChild(valueText);
 
         /* Get a reference to the context of our canvas object */
         ctx = canvas.getContext("2d");
@@ -131,19 +131,19 @@ see the file license.txt that was included with the plugin bundle.
         tubeGrad.addColorStop(1, '#aacee6');
 
         /* The inner circle is 2/3rds the size of the outer one */
-        innerRadius = cX * 0.6666;
+        innerRadius = cX * 0.8;
         /* Outer radius is the same as the width / 2, same as the centre x
         * (but we leave a little room so the borders aren't truncated) */
         radius = cX - 2;
 
         /* Calculate the radii of the inner tube */
-        innerBarRadius = innerRadius + (cX * 0.06);
-        outerBarRadius = radius - (cX * 0.06);
+        innerBarRadius = innerRadius + (cX * 0.01);
+        outerBarRadius = radius - (cX * 0.01);
 
         /* Bottom left angle */
-        startAngle = 2.1707963267949;
+        startAngle = (Math.PI * 1.5);
         /* Bottom right angle */
-        endAngle = 0.9707963267949 + (Math.PI * 2.0);
+        endAngle = (Math.PI * 3.5);
 
         /* Nicer to pass counterClockwise / clockwise into canvas functions
         * than true / false */

@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <html>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <head>
     <script src="src/jquery.percentageloader-0.2.js"></script>
     <link rel="stylesheet" href="src/jquery.percentageloader-0.2.css">
@@ -31,15 +32,15 @@
   </head>
   <body>
     <div id="container">
-      <div id="topLoader">      
+      <div id="topLoader">
       </div>
       
-      <button id="animateButton">Animate Loader</button>
-      
        <script>
+       
+       var param=0.78;
           window.addEventListener('load', function() {
             var topLoader = new PercentageLoader(document.getElementById('topLoader'), {
-              width: 256, height: 256, controllable: true, progress: 0.5, onProgressUpdate: function (val) {
+              width: 256, height: 256, controllable: true, progress: 0, onProgressUpdate: function (val) {
                 this.setValue(Math.round(val * 100.0) + 'kj');
               }
             });
@@ -51,31 +52,30 @@
              * wrap it in the below `ready` function to ensure its correct operation
              */
             topLoader.loaded(function () {
-              document.getElementById('animateButton').addEventListener('click', function () {
                 if (topLoaderRunning) {
                   return;
                 }
 
                 topLoaderRunning = true;
 
-                var kb = 0;
-                var totalKb = 999;
+                var kb = 1;
+                var totalKb = 1000;
+                var inikb=Math.round(totalKb * param);
 
                 var animateFunc = function () {
-                  kb += 17;
+                  kb += 10;
                   topLoader.setProgress(kb / totalKb);
-                  topLoader.setValue(kb.toString() + 'kb');
-
-                  if (kb < totalKb) {
-                    setTimeout(animateFunc, 25);
+//                topLoader.setValue(kb.toString() + 'kb');
+									
+                  if (kb < inikb) {
+                    setTimeout(animateFunc, 15);
                   } else {
                     topLoaderRunning = false;
                   }
                 };
 
-                setTimeout(animateFunc, 25);
+                setTimeout(animateFunc, 15);
               });
-            });
           });
 
       </script>
